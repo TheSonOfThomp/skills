@@ -1,0 +1,30 @@
+{
+  "name": "@thesonofthomp/skills",
+  "version": "0.1.0",
+  "description": "Agent skills by @thesonofthomp, packaged for pi and usable from Claude Code and Codex",
+  "keywords": [
+    "pi-package",
+    "agent-skills",
+    "skills"
+  ],
+  "author": "Adam Thompson",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSonOfThomp/skills.git"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "changeset": "changeset",
+    "version": "changeset version"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3"
+  },
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}
