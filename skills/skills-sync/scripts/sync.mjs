@@ -55,6 +55,8 @@ const insideSource = (path) => matchRoots.some((root) => path === root || path.s
 for (const target of targets) {
   const report = { linked: 0, relinked: 0, removed: 0, unchanged: 0, conflicts: [] };
   const targetStat = lstatOrNull(target);
+  // Starts empty once replaced or created, which a dry run has to pretend
+  const fresh = !targetStat || targetStat.isSymbolicLink();
   if (targetStat?.isSymbolicLink()) {
     // A whole-directory symlink (the old layout) can only show one source; replace it with a real directory.
     console.log(`${target}: replacing directory symlink -> ${readlinkSync(target)}`);
@@ -72,7 +74,7 @@ for (const target of targets) {
 
   for (const [name, dir] of skills) {
     const link = join(target, name);
-    const stat = lstatOrNull(link);
+    const stat = fresh ? null : lstatOrNull(link);
     if (!stat) {
       if (!dryRun) symlinkSync(dir, link);
       report.linked++;
@@ -95,7 +97,7 @@ for (const target of targets) {
   }
 
   // Remove links to skills that no longer exist in any source; leave everything else alone.
-  if (existsSync(target)) {
+  if (!fresh) {
     for (const name of readdirSync(target)) {
       if (name.startsWith(".") || skills.has(name)) continue;
       const link = join(target, name);

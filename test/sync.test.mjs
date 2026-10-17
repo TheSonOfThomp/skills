@@ -82,6 +82,19 @@ test("dry run changes nothing", (t) => {
   assert.ok(!existsSync(target));
 });
 
+test("dry run of a whole-directory symlink reports what a real run would do", (t) => {
+  const { tmp, repo, vault } = setup();
+  t.after(() => rmSync(tmp, { recursive: true, force: true }));
+  const target = join(tmp, "target");
+  symlinkSync(vault, target);
+
+  const out = run("--source", repo, "--source", vault, "--target", target, "--dry-run");
+
+  assert.match(out, /linked 3, relinked 0, removed 0, unchanged 0/);
+  assert.doesNotMatch(out, /conflict/);
+  assert.ok(lstatSync(target).isSymbolicLink());
+});
+
 function lstatOrNull(path) {
   try {
     return lstatSync(path);
