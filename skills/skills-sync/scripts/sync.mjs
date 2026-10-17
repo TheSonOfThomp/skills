@@ -4,7 +4,7 @@
 //
 // Usage: node sync.mjs [--source DIR]... [--target DIR]... [--dry-run]
 //   --source  defaults to the skills/ directory this script lives in
-//   --target  defaults to ~/.claude/skills and ~/.codex/skills
+//   --target  defaults to ~/.claude/skills and ~/.agents/skills (read by pi, Codex and the skills CLI)
 import { existsSync, lstatSync, mkdirSync, readdirSync, readlinkSync, realpathSync, statSync, symlinkSync, unlinkSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, resolve, sep } from "node:path";
@@ -30,7 +30,7 @@ for (let i = 0; i < args.length; i++) {
   }
 }
 if (sources.length === 0) sources.push(resolve(dirname(realpathSync(fileURLToPath(import.meta.url))), "../.."));
-if (targets.length === 0) targets.push(join(homedir(), ".claude", "skills"), join(homedir(), ".codex", "skills"));
+if (targets.length === 0) targets.push(join(homedir(), ".claude", "skills"), join(homedir(), ".agents", "skills"));
 
 for (const s of sources) if (!existsSync(s)) fail(`source does not exist: ${s}`);
 // Links use each source as given; matching also accepts its real path (e.g. /var vs /private/var on macOS)
