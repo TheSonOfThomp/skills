@@ -29,9 +29,23 @@ pi install git:github.com/TheSonOfThomp/skills
 
 Pin a release with `@vX.Y.Z`. Use `pi config` to turn individual skills off.
 
-### Claude Code and Codex
+### Claude Code, Codex and other agents
 
-Clone the repo, then link every skill into `~/.claude/skills` and `~/.codex/skills`:
+Install with the [`skills` CLI](https://skills.sh):
+
+```bash
+npx skills add TheSonOfThomp/skills --list            # see what's in the repo
+npx skills add TheSonOfThomp/skills -g --skill '*'    # all skills, for your user
+npx skills add TheSonOfThomp/skills --skill grill-me  # one skill, for the current project
+```
+
+It asks which agents to install for (`--agent claude-code codex` skips the question). Global installs are copied to `~/.agents/skills`, which Codex reads directly, and symlinked into each other agent's folder (such as `~/.claude/skills`). `npx skills update` pulls new versions.
+
+pi also reads `~/.agents/skills`. If you use pi, install the pi package or use `npx skills -g`, not both, or pi will load each skill twice. If `~/.agents/skills` is a symlink (for example to a synced vault folder), `npx skills -g` writes into the folder it points to.
+
+### From a clone
+
+To work on the skills and use your edits straight away, clone the repo and link every skill into `~/.claude/skills` and `~/.codex/skills`:
 
 ```bash
 git clone https://github.com/TheSonOfThomp/skills ~/Documents/GitHub/skills

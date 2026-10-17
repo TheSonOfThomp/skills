@@ -38,6 +38,7 @@ Skills come from more than one place: this repo's `skills/` folder, and optional
 
 ## Notes
 
+- Skills installed with `npx skills add` are already linked by that CLI; this skill is for working from a clone, or for combining a clone with other folders.
 - The script only removes symlinks that point into one of the sources and whose skill is gone. It never deletes real files or directories.
 - It is idempotent: safe to run any time, and after adding or removing a skill.
 - Pass `--target DIR` (repeatable) to link into other directories instead of the defaults.
