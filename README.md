@@ -5,6 +5,7 @@ Agent skills by [@thesonofthomp](https://github.com/TheSonOfThomp), in the [Agen
 | Skill | What it does |
 |---|---|
 | `color-palette` | Builds perceptually uniform OKLCH colour ramps and accessible palettes, with a bundled contrast and colourblind check |
+| `ebay-search` | Searches and compares current eBay listings with useful filters and visible listing details |
 | `font-pairing` | Researches and recommends a typeface to pair with an existing brand face |
 | `git-actions` | Git and `gh` workflows: commits, branches, PRs, rebases, conflicts, with safety checks for destructive commands |
 | `grill-me` | Interviews you about a plan until every branch of the decision tree is resolved |
